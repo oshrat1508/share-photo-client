@@ -47,6 +47,11 @@ const dispatch = useDispatch()
     setSaved(true);
   };
 
+  const grid =[
+    { minScreenWidth: 0,
+      maxScreenWidth: 500,
+      columns: 2,
+      columnWidth: 160,}]
   
 
   return (
@@ -87,15 +92,15 @@ const dispatch = useDispatch()
             Edit profile
           </div>
         ) : null}
-        <div className="font-bold flex justify-between w-40">
+        <div className="font-bold flex justify-between w-40 mb-2">
           {" "}
-          <span
+          {/* <span
             onClick={handleSaved}
             className="cursor-pointer"
             style={saved ? { borderBottom: "solid 2px" } : null}
           >
             saved
-          </span>{" "}
+          </span>{" "} */}
           <span
             onClick={handleLike}
             className="cursor-pointer"
@@ -118,8 +123,8 @@ const dispatch = useDispatch()
               columnWidth={240} // width of each block
               gutterWidth={10} // horizontal gutter between each block
               gutterHeight={10} // vertical gutter between each block
-              responsive={true}
-            >
+              responsive={{customBreakPoints: grid}}    
+              >
               {posts
                 ?.filter((post) => post.creator === userProfile?._id)
                 .map((post, i) => (
@@ -136,8 +141,8 @@ const dispatch = useDispatch()
               columnWidth={240} // width of each block
               gutterWidth={10} // horizontal gutter between each block
               gutterHeight={10} // vertical gutter between each block
-              responsive={true}
-            >
+              responsive={{customBreakPoints: grid}}    
+              >
               {posts
                 ?.filter((post) =>
                   post?.likes?.find((like) => like === userProfile?._id)

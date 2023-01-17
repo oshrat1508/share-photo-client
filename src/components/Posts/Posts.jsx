@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Post from "./Post/Post";
 import { useSelector } from "react-redux";
 import { TailSpin } from "react-loader-spinner";
 import PinterestGrid from "rc-pinterest-grid";
+import $ from "jquery";
+import { useState } from "react";
 
-export default function Posts({ setCurrentId, setShowForm ,search }) {
+export default function Posts({ setCurrentId, setShowForm, search }) {
   const posts = useSelector((state) => state.posts);
-  const user = useSelector((state) => state.authReducer);
+  // const [grid, setGrid] = useState();
+
+  const grid =[
+    { minScreenWidth: 0,
+      maxScreenWidth: 500,
+      columns: 2,
+      columnWidth: 160,}]
   
 
   return (
-    <div className="flex justify-center items-center m-0 p-0 width={'100%'}">
+    <div className="flex  w-[100%] justify-center mt-12">
       {!posts.length ? (
         <TailSpin
           height="80"
@@ -22,28 +30,33 @@ export default function Posts({ setCurrentId, setShowForm ,search }) {
         />
       ) : (
         <PinterestGrid
-        
-          columns={6} // how many columns in one row
-          columnWidth={240} // width of each block
-          gutterWidth={10} // horizontal gutter between each block
-          gutterHeight={10}
-          responsive={true}
+        columns={6}            
+        columnWidth={240}      
+        gutterWidth={10}       
+        gutterHeight={10}  
+        responsive={{customBreakPoints: grid}}    
+
         >
-          {posts.filter((post)=>{
-    if(search== ''){
-      return post
-    }else if (post.title.toLowerCase().includes(search.toLowerCase())) {
-      return post
-    }
-  }).map((post, i) => (
-            <div key={i}>
-              <Post className='bg-black'
-                post={post}
-                setShowForm={setShowForm}
-                setCurrentId={setCurrentId}
-              />
-            </div>
-          ))}
+          {posts
+            .filter((post) => {
+              if (search == "") {
+                return post;
+              } else if (
+                post.title.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return post;
+              }
+            })
+            .map((post, i) => (
+              <div key={i}>
+                <Post
+                  className="bg-black"
+                  post={post}
+                  setShowForm={setShowForm}
+                  setCurrentId={setCurrentId}
+                />
+              </div>
+            ))}
         </PinterestGrid>
       )}
     </div>

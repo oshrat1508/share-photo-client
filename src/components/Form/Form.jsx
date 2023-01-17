@@ -27,12 +27,13 @@ export default function Form({ currentId, setShowForm, setCurrentId }) {
     if (currentId) {
       dispatch(
         update_post(currentId, { ...postData, name: user?.results?.name }));
+
     } else {
       dispatch(create_post(postData));
     }
     
       setShowForm(false)
-      setCurrentId(null)
+      
     clearf(e);
   };
 
@@ -42,14 +43,14 @@ export default function Form({ currentId, setShowForm, setCurrentId }) {
 
   if (!user?.results?.name) {
     return (
-      <div>please sing in to create your own memories and like others</div>
+     alert('please sing in to create your own memories and like others') 
     );
   }
   return (
-    <div className="md:bg-black h-[100vh] w-[100vw] fixed top-20 z-20 md:bg-opacity-80 left-0">
-      <div className="flex justify-center flex-col md:flex-row items-center text-center  h-[100%] w-[100%] bg-white rounded-lg md:h-[80%] md:w-[80%] top-16  fixed md:top-28 md:left-[10%]  z-20 ">
+    <div className="h-[100vh] w-[100vw] flex  justify-center  fixed top-4 md:top-20 z-20 md:bg-opacity-80  ">
+      <div className="flex justify-center flex-col md:flex-row items-center  text-center  bg-white rounded-lg h-[90%] w-[90%] md:h-[80%] md:w-[70%]  border-2 border-gray-600     z-20 ">
         <AiOutlineClose
-          className="cursor-pointer relative bottom-[45%] left-[95%]    "
+          className="cursor-pointer relative md:bottom-[45%] md:left-[95%] bottom-8 left-32   "
           onClick={() => setShowForm(false)}
         />
         <form className="w-[100%]" autoComplete="off" noValidate onSubmit={(e)=>{handleSubmit(e)}}
@@ -114,12 +115,12 @@ required>
             </div>
             <div
               style={{ boxShadow: "0 2px 10px 0.2px" }}
-              className="border-2 md:self-auto  self-center w-[50%]  md:w-[30%] "
+              className="border-2 md:self-auto h-[70%] md:h-auto self-center w-[50%]  md:w-[30%] "
             >
-              <div className="flex justify-center items-center w-[100%] h-[100%] mb-2">
+              <div className="flex justify-center items-center w-[100%] h-[90%] mb-2">
                 {postData.selectedFile ? (
                   <img
-                    className="w-[240px]  rounded-md"
+                    className="md:w-[200px]  rounded-md"
                     src={postData?.selectedFile}
                     alt=""
                   />
@@ -127,13 +128,13 @@ required>
                   <AiFillFileImage size={50} />
                 )}
               </div>
-              <FileBase64
+              {/* <FileBase64
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) =>
                   setPostData({ ...postData, selectedFile: base64 })
                 }
-              />{" "}
+              />{" "} */}
             </div>
           </div>
         </form>

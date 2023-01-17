@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
-    "dependencies": {
+  "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.19.2",
+    "jquery": "^3.6.3",
     "jwt-decode": "^3.1.2",
     "moment": "^2.27.0",
     "rc-pinterest-grid": "^0.0.4",

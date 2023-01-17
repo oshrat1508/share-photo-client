@@ -28,10 +28,10 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div>
+      <div className="mb-20 md:mb-0">
         <Navbar  setSearch={setSearch} setShowForm={setShowForm} currentId={currentId} setCurrentId={setCurrentId}  showForm={showForm} />
         <Routes>
-          <Route path="/" element={<Posts setShowForm={setShowForm} search={search} showForm={showForm} setCurrentId={setCurrentId} />} />
+          <Route path="/" element={<Posts setShowForm={setShowForm} search={search}  showForm={showForm} setCurrentId={setCurrentId} />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile/:id" element={<ProfilePage setShowForm={setShowForm}  showForm={showForm} setCurrentId={setCurrentId} />} />
           <Route path="/edit/:obj" element={<EditProfile />} />

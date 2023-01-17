@@ -50,9 +50,9 @@ if(isSingUp){
       <div style={{background:'url("https://images.ctfassets.net/h67z7i6sbjau/3ii4Es78uWW7YWgWcyKE0m/e4d22d08b25553001462de864fb863b1/Pinterest-for-Business.jpg")',backgroundColor:' #cccccc',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'}} className='w-[90vw] h-[80vh] m-auto rounded-xl flex justify-center items-center' >
+    backgroundSize: 'cover'}} className='md:w-[90vw] w-[100vw] h-[100vh] md:h-[80vh] m-auto rounded-xl flex justify-center items-center' >
        
-        <form className="bg-white p-8 flex flex-col " action="" onSubmit={handleSubmit}>
+        <form className="bg-white w-[95%] md:w-[25%] p-8 flex flex-col rounded" action="" onSubmit={handleSubmit}>
          <h1 className="text-3xl text-center mb-5">{isSingUp ? "Sing Up " : "Sing In"}</h1> 
           {isSingUp && (
             <>
