@@ -28,22 +28,23 @@ export default function Post({ post, setCurrentId, setShowForm }) {
   );
 
   return (
-    <div className="">
+    <div className="text-transparent  hover:text-white ">
+      {/* <div className="absolute top-0 right-14 bg-black b h-10 w-2 z-"></div> */}
       <img
         onClick={() => navigate(`/postDetails/${post._id}`)}
         className="w-[240px] rounded-xl "
         src={post.selectedFile}
         alt=""
       />
-      <div className="flex text-white ">
+      <div className="h-0">
         {(user?.results?.googleId === post?.creator ||
           user?.results?._id === post?.creator) && (
           <>
-            <button className="absolute top-4 right-4" onClick={handleEdit}>
+            <button className="absolute top-2 right-4 " onClick={handleEdit}>
               <FiMoreHorizontal size={30} />
             </button>
             <button
-              className="flex absolute bottom-10 right-3"
+              className="flex absolute top-3 right-14"
               onClick={() => {
                 dispatch(delete_post(post._id));
               }}
@@ -52,8 +53,9 @@ export default function Post({ post, setCurrentId, setShowForm }) {
             </button>
           </>
         )}
+        <>
         <button
-          className="flex absolute  bottom-10 left-2 border-2 rounded-full p-1"
+          className="flex absolute  top-2 left-2  p-1"
           disabled={!user?.results}
           onClick={() => {
             dispatch(likePost(post._id));
@@ -61,9 +63,9 @@ export default function Post({ post, setCurrentId, setShowForm }) {
         >
           <Likes   post={post} />
         </button>
-        <button className="flex absolute bottom-11 left-16">
+        <button className="flex  absolute  top-2 left-10 ">
           <AiOutlineUpload size={25} />
-        </button>
+        </button></>
       </div>
       {flitered &&
         (flitered.profileImg ? (

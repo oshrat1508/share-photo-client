@@ -18,7 +18,6 @@ export default function PostDetails() {
     id: user?.results._id,
     comment: "",
   });
-  // console.log(users?.find(user => user._id === clickedpost[0].creator));
 
   const handleComments = () => {
     if(user){
@@ -31,7 +30,6 @@ export default function PostDetails() {
 
     }
   };  
-    // console.log(users.find(user=> user._id === clickedpost[0].comments[0].id).profileImg);
 
   const deleteComment = (i) => {
     const a = clickedpost[0]?.comments.splice(i, 1);
@@ -42,18 +40,18 @@ export default function PostDetails() {
     <>
       <div className="flex items-center md:items-start md:justify-center text-black w-[100%] md:w-[60%] flex-col-reverse md:flex-row m-auto mt-10 border-black rounded-md ">
         <div className="w-[80%] mr-3">
-          <div className="flex items-center md:justify-between w-[100%] md:px-4">
+          <div className="flex items-center  w-[100%] md:px-4">
             <span
-              className="flex left-2 border-2 rounded-full p-1"
+              className="flex left-2 rounded-full p-1"
               disabled={!user?.results}
               onClick={() => {
                 dispatch(likePost(clickedpost[0]._id));
               }}
             >
-              <Likes post={clickedpost[0]} />
+              <Likes  post={clickedpost[0]} />
             </span>{" "}
-            <span className="flex">
-              <AiOutlineUpload /> 
+            <span className="flex mb-1">
+              <AiOutlineUpload size={19} /> 
             </span>
           </div>
           <div>{clickedpost[0]?.url}</div>
