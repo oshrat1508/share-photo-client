@@ -6,7 +6,7 @@ import { update_user ,singin } from "../../actions/auth";
 import { fetchUsers } from "../../api";
 export default function EditProfile() {
   const [user] = useState(JSON.parse(localStorage.getItem("profile")));
-  console.log(user.results._id);
+
   const {obj} = useParams()
   const navigate = useNavigate();
   const [editUser, setEditUser] = useState({
