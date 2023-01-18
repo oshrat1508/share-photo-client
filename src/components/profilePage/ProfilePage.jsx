@@ -13,7 +13,7 @@ export default function ProfilePage({ setCurrentId, setShowForm }) {
 const dispatch = useDispatch()
   const { id } = useParams();
   const userProfile = usersData?.find((user) => user._id === id);
-
+console.log(userProfile);
   useEffect(
     () => async () => {
       const { data } = await fetchUsers();

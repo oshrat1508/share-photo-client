@@ -49,12 +49,12 @@ export default function Navbar({setShowForm ,showForm , currentId ,setCurrentId 
             <AiOutlineLogout className=" flex md:hidden"/>          </button>
             
             
-            <div className="ml-2 flex flex-col items-center">
+            <div onClick={() => navigate(`/profile/${user.results._id}`)} className="ml-2 flex flex-col items-center">
               {user.results.profileImg ? (
-                <img onClick={() => navigate(`/profile/${user.results._id}`)} className=" cursor-pointer bg-slate-200 w-10 h-10 text-center  rounded-full border-2  " src={user.results.profileImg} alt={user.results.name} />
+                <img  className=" cursor-pointer bg-slate-200 w-10 h-10 text-center  rounded-full border-2  " src={user.results.profileImg} alt={user.results.name} />
               ) : (
                 <div
-                  onClick={() => navigate(`/profile/${user.results._id}`)}
+                 
                   className=" cursor-pointer bg-slate-200 w-9 h-9 text-center p-1 rounded-full border-2 border-black "
                 >
                   {user.results.email[0].toUpperCase()}
