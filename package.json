@@ -10,7 +10,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.19.2",
-    "jquery": "^3.6.3",
     "jwt-decode": "^3.1.2",
     "moment": "^2.27.0",
     "rc-pinterest-grid": "^0.0.4",

@@ -3,12 +3,9 @@ import Post from "./Post/Post";
 import { useSelector } from "react-redux";
 import { TailSpin } from "react-loader-spinner";
 import PinterestGrid from "rc-pinterest-grid";
-import $ from "jquery";
-import { useState } from "react";
 
 export default function Posts({ setCurrentId, setShowForm, search }) {
   const posts = useSelector((state) => state.posts);
-  // const [grid, setGrid] = useState();
 
   const grid =[
     { minScreenWidth: 0,
