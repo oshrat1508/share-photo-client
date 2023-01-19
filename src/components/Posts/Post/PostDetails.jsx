@@ -13,7 +13,7 @@ export default function PostDetails() {
   const posts = useSelector((state) => state.posts);
   const users = useSelector((state) => state.authReducer.users);
   const clickedpost = posts.filter((post) => post._id === id);
-  console.log(clickedpost);
+  
   const [commentPost, setComment] = useState({
     id: user?.results._id,
     comment: "",

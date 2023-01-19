@@ -8,26 +8,21 @@ import { fetchUsers } from "../../api";
 import { follow_user } from "../../actions/auth";
 
 export default function ProfilePage({ setCurrentId, setShowForm }) {
-  const [user] = useState(JSON.parse(localStorage.getItem("profile")));
-  const [usersData, setUsersData] = useState([]);
-const dispatch = useDispatch()
   const { id } = useParams();
-  const userProfile = usersData?.filter((user) => user._id === id);
-console.log(userProfile);
-  useEffect(
-    () => async () => {
-      const { data } = await fetchUsers();
-      setUsersData(data);
-    },
-    []
-  );
+  const [user] = useState(JSON.parse(localStorage.getItem("profile")));
+  const users = useSelector((state) => state.authReducer.users);
+
+  console.log( useSelector((state) => state).authReducer.users);
+const dispatch = useDispatch()
+  
+const userProfile = users?.filter((user) => user._id === id);
+
 
   const navigate = useNavigate();
   const [myPic, setmyPic] = useState(true);
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const posts = useSelector((state) => state.posts);
-  const users = useSelector((state) => state.authReducer.users);
    const [userFollowing]  = useState(users?.length > 0 ? users?.filter(user=>user?.follow.find(follow=> follow === userProfile[0]?._id)).length : '0')
    const handleMyPic = () => {
     setmyPic(true);
