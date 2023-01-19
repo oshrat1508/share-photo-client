@@ -27,7 +27,7 @@ export default function App() {
   }, [currentId, dispatch]);
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
       <div className="mb-20 md:mb-0">
         <Navbar  setSearch={setSearch} setShowForm={setShowForm} currentId={currentId} setCurrentId={setCurrentId}  showForm={showForm} />
         <Routes>
@@ -42,6 +42,6 @@ export default function App() {
           />
         </Routes>
       </div>
-    </BrowserRouter>
+    // </BrowserRouter>
   );
 }
