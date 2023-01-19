@@ -18,7 +18,7 @@ export default function PostDetails() {
     id: user?.results._id,
     comment: "",
   });
-
+console.log(clickedpost[0]);
   const handleComments = () => {
     if(user){
       dispatch(

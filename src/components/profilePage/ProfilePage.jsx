@@ -12,8 +12,8 @@ export default function ProfilePage({ setCurrentId, setShowForm }) {
   const [usersData, setUsersData] = useState([]);
 const dispatch = useDispatch()
   const { id } = useParams();
-  const userProfile = usersData?.find((user) => user._id === id);
-console.log(id , usersData?.find((user) => user._id == id))
+  const userProfile = usersData?.filter((user) => user._id === id);
+console.log(userProfile);
   useEffect(
     () => async () => {
       const { data } = await fetchUsers();
@@ -28,7 +28,7 @@ console.log(id , usersData?.find((user) => user._id == id))
   const [saved, setSaved] = useState(false);
   const posts = useSelector((state) => state.posts);
   const users = useSelector((state) => state.authReducer.users);
-   const [userFollowing]  = useState(users?.length > 0 ? users?.filter(user=>user?.follow.find(follow=> follow === userProfile?._id)).length : '0')
+   const [userFollowing]  = useState(users?.length > 0 ? users?.filter(user=>user?.follow.find(follow=> follow === userProfile[0]?._id)).length : '0')
    const handleMyPic = () => {
     setmyPic(true);
     setLiked(false);
@@ -56,34 +56,34 @@ console.log(id , usersData?.find((user) => user._id == id))
     <div className="flex justify-center ">
       <div className="flex justify-center flex-col items-center m-10">
         <div className="m-5 flex ">
-          {userProfile?.profileImg ? (
+          {userProfile[0]?.profileImg ? (
             <img
               className=" w-36 h-36 text-7xl border-2 rounded-full  flex justify-center "
-              src={userProfile.profileImg}
+              src={userProfile[0].profileImg}
               alt=""
             />
           ) : (
             <div className="bg-slate-200 w-36 h-36 text-8xl  rounded-full border-black flex items-center justify-center ">
-              <span>{userProfile?.email[0].toUpperCase()}</span>{" "}
+              <span>{userProfile[0]?.email[0].toUpperCase()}</span>{" "}
             </div>
           )}
         </div>
-        <div className="mb-2">{userProfile?.email}</div>
-        <div className="mb-2">{userProfile?.name}</div>
-        <div className="mb-2">{userProfile?.description}description:</div>
+        <div className="mb-2">{userProfile[0]?.email}</div>
+        <div className="mb-2">{userProfile[0]?.name}</div>
+        <div className="mb-2">{userProfile[0]?.description}description:</div>
         <div onClick={() => {
-            dispatch(follow_user(userProfile?._id))
+            dispatch(follow_user(userProfile[0]?._id))
           }} className="p-2 cursor-pointer bg-[#47083d] text-white font-medium rounded-full mb-5">
-           follow{userProfile?.follow.find(follow => follow === user.results._id)&&
+           follow{userProfile[0]?.follow.find(follow => follow === user.results._id)&&
             'ing'
             }
         </div>
         <div className="mb-2">
-         {userFollowing} followering | {userProfile?.follow?.length} followers
+         {userFollowing} followering | {userProfile[0]?.follow?.length} followers
         </div>
         {id === user?.results._id ? (
           <div
-            onClick={() => navigate(`/edit/${userProfile}`)}
+            onClick={() => navigate(`/edit/${userProfile[0]}`)}
             className="p-2 cursor-pointer bg-[#69135B] text-white font-medium rounded mb-11"
           >
             {" "}
@@ -124,7 +124,7 @@ console.log(id , usersData?.find((user) => user._id == id))
               responsive={{customBreakPoints: grid}}    
               >
               {posts
-                ?.filter((post) => post.creator === userProfile?._id)
+                ?.filter((post) => post.creator === userProfile[0]?._id)
                 .map((post, i) => (
                   <div key={i}>
                     <Post post={post} setShowForm={setShowForm}
@@ -143,7 +143,7 @@ console.log(id , usersData?.find((user) => user._id == id))
               >
               {posts
                 ?.filter((post) =>
-                  post?.likes?.find((like) => like === userProfile?._id)
+                  post?.likes?.find((like) => like === userProfile[0]?._id)
                 )
                 .map((post, i) => (
                   <div key={i}>
