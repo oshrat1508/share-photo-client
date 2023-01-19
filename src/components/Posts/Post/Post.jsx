@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { AiFillDelete, AiOutlineUpload } from "react-icons/ai";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { delete_post, likePost } from "../../../actions/posts";
 import { fetchUsers } from "../../../api";
@@ -12,20 +12,20 @@ import Likes from "./Likes";
 export default function Post({ post, setCurrentId, setShowForm }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [usersData, setUsersData] = useState([]);
+  const users = useSelector((state) => state.authReducer.users);
   const user = JSON.parse(localStorage.getItem("profile"));
   const handleEdit = () => {
     setCurrentId(post._id);
     setShowForm(true);
   };
-  const flitered = usersData?.find((user) => user._id === post.creator);
-  useEffect(
-    () => async () => {
-      const { data } = await fetchUsers();
-      setUsersData(data);
-    },
-    []
-  );
+  const flitered = users?.find((user) => user._id === post.creator);
+  // useEffect(
+  //   () => async () => {
+  //     const { data } = await fetchUsers();
+  //     setUsersData(data);
+  //   },
+  //   []
+  // );
 
   return (
     <div className="text-transparent  hover:text-white ">
@@ -63,9 +63,10 @@ export default function Post({ post, setCurrentId, setShowForm }) {
         >
           <Likes   post={post} />
         </button>
-        <button className="flex  absolute  top-2 left-10 ">
+        {/* <button className="flex  absolute  top-2 left-10 ">
           <AiOutlineUpload size={25} />
-        </button></>
+        </button> */}
+        </>
       </div>
       {flitered &&
         (flitered.profileImg ? (

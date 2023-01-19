@@ -52,9 +52,9 @@ export default function PostDetails() {
             >
               <Likes  post={clickedpost[0]} />
             </span>{" "}
-            <span className="flex mb-1">
+            {/* <span className="flex mb-1">
               <AiOutlineUpload size={19} /> 
-            </span>
+            </span> */}
           </div>
           <div>{clickedpost[0]?.url}</div>
           <h1 className="text-3xl font-semibold mt-6">
