@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineUpload, AiOutlineDown, AiFillDelete } from "react-icons/ai";
 import { FiMoreHorizontal } from "react-icons/fi";
 import Likes from "./Likes";
 import { likePost, update_post, get_posts } from "../../../actions/posts";
 
+
 export default function PostDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profile"));
   const posts = useSelector((state) => state.posts);
   const users = useSelector((state) => state.authReducer.users);
@@ -63,7 +65,7 @@ export default function PostDetails() {
             {users
               ?.filter((user) => user._id === clickedpost[0]?.creator)
               .map((u, i) => (
-                <div className="flex items-center" key={i}>
+                <div onClick={() => navigate(`/profile/${u._id}`)} className="flex items-center" key={i}>
                   <span>
                     {" "}
                     {u?.profileImg ? (
@@ -93,22 +95,22 @@ export default function PostDetails() {
                 <span className="flex font-medium border-b-2 ">
                   {users?.find(user=> user._id === comment.id).profileImg? (
                     <>
-                    
-                    <img
+
+                    <img 
                       className=" w-9 h-9 text-7xl border-2 rounded-full  flex justify-center "
                       src={users?.find(user=> user._id === comment.id).profileImg}
                       alt=""
                     /></>
                   ) : (
                     <div className="bg-slate-200 w-9 h-9 text-1xl rounded-full border-black flex items-center justify-center ">
-                      <span>{user?.results?.email[0].toUpperCase()}</span>{" "}
+                      <span>{users?.find(user=> user._id === comment.id)?.email[0].toUpperCase()}</span>{" "}
                     </div>
                   )}{" "}
-                  {user?.results?.email}
+                  {users?.find(user=> user._id === comment.id)?.email}
                 </span>
                 <div className="flex justify-between p-2 w-[100%]">
                   <span className="md:w-[80%]">{comment.comment}</span>
-                  {user?.results._id === comment.id && (
+                  {users?.find(user=> user._id === comment.id)._id === comment.id && (
                     <span><AiFillDelete size={20} onClick={() => deleteComment(i)} /></span>
                   )}
                 </div>{" "}
