@@ -10,15 +10,14 @@ export default function PostDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
-
   const posts = useSelector((state) => state.posts);
   const users = useSelector((state) => state.authReducer.users);
   const clickedpost = posts.filter((post) => post._id === id);
+  console.log(clickedpost);
   const [commentPost, setComment] = useState({
     id: user?.results._id,
     comment: "",
   });
-console.log(clickedpost[0]);
   const handleComments = () => {
     if(user){
       dispatch(
@@ -83,21 +82,24 @@ console.log(clickedpost[0]);
               ))}
           </div>
           <div>
-            <span className=" mt-6 mb-2 font-bold text-xl w-[100]  flex items-center">
+            <span className=" mt-6 mb-2 font-bold text-xl w-[100] flex items-center">
               {" "}
               comments
             </span>
             {clickedpost[0]?.comments?.map((comment, i) => (
               <div className="border-2 w-[100%] border-black rounded-md md:w-3/4 mb-2 p-2" key={i}>
+                {console.log(users?.find(user=> user._id === comment.id))}
                 <span className="flex font-medium border-b-2 ">
                   {users?.find(user=> user._id === comment.id).profileImg? (
+                    <>
+                    
                     <img
                       className=" w-9 h-9 text-7xl border-2 rounded-full  flex justify-center "
                       src={users?.find(user=> user._id === comment.id).profileImg}
                       alt=""
-                    />
+                    /></>
                   ) : (
-                    <div className="bg-slate-200 w-9 h-9 text-8xl rounded-full border-black flex items-center justify-center ">
+                    <div className="bg-slate-200 w-9 h-9 text-1xl rounded-full border-black flex items-center justify-center ">
                       <span>{user?.results?.email[0].toUpperCase()}</span>{" "}
                     </div>
                   )}{" "}
