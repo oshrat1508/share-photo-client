@@ -38,6 +38,7 @@ export default function PostDetails() {
   return (
     <>
       <div className="flex items-center md:items-start md:justify-center text-black w-[100%] md:w-[60%] flex-col-reverse md:flex-row m-auto mt-10 border-black rounded-md ">
+          {clickedpost[0] ? <>
         <div className="w-[80%] mr-3">
           <div className="flex items-center  w-[100%] md:px-4">
             <span
@@ -137,7 +138,8 @@ export default function PostDetails() {
           />{" "}
           {clickedpost?.title}
         </div>
-      </div>
+        </>: 'loading...'}
+         </div>
     
     </>
   );

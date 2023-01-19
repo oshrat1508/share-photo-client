@@ -50,6 +50,8 @@ const userProfile = users?.filter((user) => user._id === id);
   return (
     <div className="flex justify-center ">
       <div className="flex justify-center flex-col items-center m-10">
+        {userProfile ? 
+        <>
         <div className="m-5 flex ">
           {userProfile[0]?.profileImg ? (
             <img
@@ -152,7 +154,7 @@ const userProfile = users?.filter((user) => user._id === id);
             </PinterestGrid>
           )}
         </div>
-      </div>
+      </>: " loading ..."}</div>
     </div>
   );
 }
