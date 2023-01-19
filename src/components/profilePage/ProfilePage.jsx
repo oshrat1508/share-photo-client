@@ -13,7 +13,7 @@ export default function ProfilePage({ setCurrentId, setShowForm }) {
 const dispatch = useDispatch()
   const { id } = useParams();
   const userProfile = usersData?.find((user) => user._id === id);
-console.log(user , usersData?.find((user) => user._id === id))
+console.log(id , usersData?.find((user) => user._id == id))
   useEffect(
     () => async () => {
       const { data } = await fetchUsers();
