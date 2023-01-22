@@ -3,7 +3,6 @@ import * as api from '../api'
 export const get_users = ()=> async(dispatch)=>{
   try{
 const {data} = await api.fetchUsers()
-console.log(data);
     dispatch({type:'FETCH_USERS', payload: data})
   } catch(e){
  console.log(e.message);
@@ -46,7 +45,6 @@ export const singin = (formData , navigate)=> async(dispatch)=>{
     export const follow_user = (id)  => async(dispatch)=> {
       try{
         const {data} = await api.followUser(id)
-        console.log(data);
       dispatch({type :'UPDATEFOLLOW' , data})
       
       }catch(e){

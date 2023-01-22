@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSelector ,useDispatch } from "react-redux";
-import { useNavigate, useParams , } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import Post from "../Posts/Post/Post";
 import PinterestGrid from "rc-pinterest-grid";
 import { fetchUsers } from "../../api";
@@ -10,17 +10,33 @@ import { follow_user } from "../../actions/auth";
 export default function ProfilePage({ setCurrentId, setShowForm }) {
   const { id } = useParams();
   const [user] = useState(JSON.parse(localStorage.getItem("profile")));
-  const users = useSelector((state) => state.authReducer.users);
-const dispatch = useDispatch()
-const userProfile = users?.filter((user) => user._id === id)[0];
+  const [users,setUsers] = useState()
+    const allusers = async () => {
+   const {data} = await fetchUsers();
+   setUsers(data)
+   
+  };
 
+  useEffect(()=>{
+  allusers()
+
+  },[])
+  console.log(users);
+  const dispatch = useDispatch();
+  const userProfile = users?.filter((user) => user._id === id)[0];
 
   const navigate = useNavigate();
   const [myPic, setmyPic] = useState(true);
   const [liked, setLiked] = useState(false);
   const posts = useSelector((state) => state.posts);
-   const [userFollowing]  = useState(users?.length > 0 ? users?.filter(user=>user?.follow.find(follow=> follow === userProfile?._id)).length : '0')
-   const handleMyPic = () => {
+  const [userFollowing] = useState(
+    users?.length > 0
+      ? users?.filter((user) =>
+          user?.follow.find((follow) => follow === userProfile?._id)
+        ).length
+      : "0"
+  );
+  const handleMyPic = () => {
     setmyPic(true);
     setLiked(false);
   };
@@ -29,18 +45,17 @@ const userProfile = users?.filter((user) => user._id === id)[0];
     setLiked(true);
   };
 
+  const grid = [
+    { minScreenWidth: 0, maxScreenWidth: 500, columns: 2, columnWidth: 160 },
+  ];
 
-  const grid =[
-    { minScreenWidth: 0,
-      maxScreenWidth: 500,
-      columns: 2,
-      columnWidth: 160,}]
-  
+  const handleFollow = () => {
+    dispatch(follow_user(userProfile?._id));
+  };
 
   return (
     <div className="flex justify-center ">
       <div className="flex justify-center flex-col items-center m-10">
-        
         <div className="m-5 flex ">
           {userProfile?.profileImg ? (
             <img
@@ -57,14 +72,16 @@ const userProfile = users?.filter((user) => user._id === id)[0];
         <div className="mb-2">{userProfile?.email}</div>
         <div className="mb-2">{userProfile?.name}</div>
         <div className="mb-2">{userProfile?.description}description:</div>
-        <div onClick={() => {dispatch(follow_user(userProfile?._id))
-        }} className="p-2 cursor-pointer bg-[#47083d] text-white font-medium rounded-full mb-5">
-           follow{userProfile?.follow?.find(follow => follow === userProfile._id)&&
-            'ing'
-            }
+        <div
+          onClick={() => handleFollow()}
+          className="p-2 cursor-pointer bg-[#47083d] text-white font-medium rounded-full mb-5"
+        >
+          follow
+          {userProfile?.follow?.find((follow) => follow === userProfile._id) &&
+            "ing"}
         </div>
         <div className="mb-2">
-         {userFollowing} following | {userProfile?.follow?.length} followers
+          {userFollowing} following | {userProfile?.follow?.length} followers
         </div>
         {id === user?.results._id ? (
           <div
@@ -76,7 +93,6 @@ const userProfile = users?.filter((user) => user._id === id)[0];
           </div>
         ) : null}
         <div className="font-bold flex justify-between w-40 mb-2">
-         
           <span
             onClick={handleLike}
             className="cursor-pointer"
@@ -99,14 +115,17 @@ const userProfile = users?.filter((user) => user._id === id)[0];
               columnWidth={240} // width of each block
               gutterWidth={10} // horizontal gutter between each block
               gutterHeight={10} // vertical gutter between each block
-              responsive={{customBreakPoints: grid}}    
-              >
+              responsive={{ customBreakPoints: grid }}
+            >
               {posts
                 ?.filter((post) => post.creator === userProfile?._id)
                 .map((post, i) => (
                   <div key={i}>
-                    <Post post={post} setShowForm={setShowForm}
-                setCurrentId={setCurrentId}/>
+                    <Post
+                      post={post}
+                      setShowForm={setShowForm}
+                      setCurrentId={setCurrentId}
+                    />
                   </div>
                 ))}
             </PinterestGrid>
@@ -117,20 +136,20 @@ const userProfile = users?.filter((user) => user._id === id)[0];
               columnWidth={240} // width of each block
               gutterWidth={10} // horizontal gutter between each block
               gutterHeight={10} // vertical gutter between each block
-              responsive={{customBreakPoints: grid}}    
-              >
+              responsive={{ customBreakPoints: grid }}
+            >
               {posts
                 ?.filter((post) =>
                   post?.likes?.find((like) => like === userProfile?._id)
                 )
                 .map((post, i) => (
                   <div key={i}>
-              <Post
-                post={post}
-                setShowForm={setShowForm}
-                setCurrentId={setCurrentId}
-              />
-            </div>
+                    <Post
+                      post={post}
+                      setShowForm={setShowForm}
+                      setCurrentId={setCurrentId}
+                    />
+                  </div>
                 ))}
             </PinterestGrid>
           )}
