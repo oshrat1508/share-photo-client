@@ -10,32 +10,32 @@ import { follow_user } from "../../actions/auth";
 export default function ProfilePage({ setCurrentId, setShowForm }) {
   const { id } = useParams();
   const [user] = useState(JSON.parse(localStorage.getItem("profile")));
-  const [users,setUsers] = useState()
-    const allusers = async () => {
+  const [users,setUsers] = useState()  
+  const [force , forceUpdate] = React.useReducer((x) => x + 1, 0);
+  const [myPic, setmyPic] = useState(true);
+  const [liked, setLiked] = useState(false); 
+   const userProfile = users?.filter((user) => user._id === id)[0];   
+   const [userFollowing, setUserFollowing]  = useState()
+
+ const allusers = async () => {
    const {data} = await fetchUsers();
+   forceUpdate()
    setUsers(data)
-   
+   setUserFollowing(users?.filter(u => u.follow.find(follow =>follow === userProfile._id) )?.length)
   };
+  
+//  console.log(userFollowing);
+
+  const dispatch = useDispatch(); 
+   const navigate = useNavigate();
+  const posts = useSelector((state) => state.posts);
+
+   
 
   useEffect(()=>{
   allusers()
+  },[force])
 
-  },[])
-  console.log(users);
-  const dispatch = useDispatch();
-  const userProfile = users?.filter((user) => user._id === id)[0];
-
-  const navigate = useNavigate();
-  const [myPic, setmyPic] = useState(true);
-  const [liked, setLiked] = useState(false);
-  const posts = useSelector((state) => state.posts);
-  const [userFollowing] = useState(
-    users?.length > 0
-      ? users?.filter((user) =>
-          user?.follow.find((follow) => follow === userProfile?._id)
-        ).length
-      : "0"
-  );
   const handleMyPic = () => {
     setmyPic(true);
     setLiked(false);
@@ -51,8 +51,10 @@ export default function ProfilePage({ setCurrentId, setShowForm }) {
 
   const handleFollow = () => {
     dispatch(follow_user(userProfile?._id));
+    forceUpdate()
   };
 
+ 
   return (
     <div className="flex justify-center ">
       <div className="flex justify-center flex-col items-center m-10">
@@ -81,7 +83,7 @@ export default function ProfilePage({ setCurrentId, setShowForm }) {
             "ing"}
         </div>
         <div className="mb-2">
-          {userFollowing} following | {userProfile?.follow?.length} followers
+        {userFollowing} following | {userProfile?.follow?.length} followers
         </div>
         {id === user?.results._id ? (
           <div

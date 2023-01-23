@@ -11,7 +11,7 @@ const authReducer = (state = { authData: null, users:null }, action) => {
     console.log( state);
 
     case "UPDATEFOLLOW":
-      return  state.users?.map((user)=> user?._id === action.data?._id ? action.data : user)
+      return {...state.users?.map((user)=> user?._id === action.data?._id ? action.data : user)}
 
       
     default:        
