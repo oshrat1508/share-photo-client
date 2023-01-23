@@ -36,9 +36,10 @@ export default function Navbar({setShowForm ,showForm , currentId ,setCurrentId 
   }, [location]);
 
   return (
-    <div className="flex items-center w-[100%] md:static fixed bottom-0 z-40
+    <div className="flex items-center  w-[100%] md:static fixed bottom-0 z-40
      justify-between m-auto p-3 bg-white ">
-      <div>
+      <div className="flex justify-between m-auto  w-[90%] md:w-[100%] items-center">
+      <div className="">
         {user ? (
           <div className="flex items-center justify-around md:justify-between w-[110px] md:w-[160px] ">
           <button
@@ -66,7 +67,7 @@ export default function Navbar({setShowForm ,showForm , currentId ,setCurrentId 
         ) : (
           <button
             onClick={() => navigate("/auth")}
-            className=" border-2 text-white bg-[#851672] px-4 py-2  rounded-md font-bold"
+            className=" border-2 text-white bg-[#851672] px-4 md:py-2 py-3 rounded-md font-bold"
           >
            <span className="hidden md:flex">Sing In</span> 
             <AiOutlineLogin className=" flex md:hidden"/>
@@ -79,13 +80,13 @@ export default function Navbar({setShowForm ,showForm , currentId ,setCurrentId 
         <div
           onClick={()=>{setShowForm(!showForm)
             setCurrentId(null)}}
-          className="flex md:items-center border-2 text-white bg-[#69135B] p-3 md:px-4 md:py-2 rounded-md font-bold"
+          className="flex md:items-center border-2 text-white bg-[#69135B] py-3 px-4 md:px-4 md:py-2 rounded-md font-bold"
         >
          <span className="md:flex hidden">pic</span>  <AiFillPlusCircle className="md:mt-1 md:ml-1" />
         </div>
       </div>
        <div className="flex items-center md:border-2 md:px-2 md:py-1 md:w-[70%] rounded-2xl md:bg-slate-100">
-        <AiOutlineSearch onClick={()=>setSearchResponsive(!searchResponsive)} className="mr-2 text-xl mt-1" />
+        <AiOutlineSearch onClick={()=>setSearchResponsive(!searchResponsive)} className="mr-2 text-3xl md:text-xl mt-1" />
         {searchResponsive ? <input 
         onChange={(e)=>setSearch(e.target.value)}
           className="outline-none absolute bottom-[57px] left-0 h-10 text-black w-[100%] bg-gray-200 rounded-t-md "
@@ -105,7 +106,7 @@ export default function Navbar({setShowForm ,showForm , currentId ,setCurrentId 
         className=" cursor-pointer  border-[#69135B] font-medium px-2 py-2 rounded-full"
       >
         <span className="hidden md:flex">Home</span> 
-        <AiFillHome className=" flex md:hidden"/>
+        <AiFillHome className=" flex md:hidden text-2xl"/>
       </div>
       <div className=" text-4xl font-bold w-14 hidden md:flex">
         <img className="rounded-full" src={Logo} alt="LOGO" />
@@ -113,7 +114,7 @@ export default function Navbar({setShowForm ,showForm , currentId ,setCurrentId 
 
       {showForm &&
       <Form currentId={currentId} setShowForm={setShowForm}/>
-      }
+      }</div>
     </div>
   );
 }

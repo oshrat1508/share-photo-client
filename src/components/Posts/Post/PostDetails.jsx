@@ -75,8 +75,8 @@ export default function PostDetails() {
                         alt=""
                       />
                     ) : (
-                      <div className="bg-slate-200 w-9 h-9 text-8xl  rounded-full border-black flex items-center justify-center ">
-                        <span>{user.results?.email[0].toUpperCase()}</span>{" "}
+                      <div className="bg-slate-200 w-9 h-9 text-1xl  rounded-full border-black flex items-center justify-center ">
+                        <span>{u.email[0].toUpperCase()}</span>{" "}
                       </div>
                     )}{" "}
                   </span>{" "}
